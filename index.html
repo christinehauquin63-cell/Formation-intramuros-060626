@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Formation Intramuros – Maîtrisez votre application locale</title>
+  <style>
+    :root {
+      --primary: #E85D27;
+      --primary-light: #FF7A45;
+      --secondary: #1A3A5C;
+      --accent: #F5A623;
+      --green: #27AE60;
+      --bg: #F9F7F4;
+      --white: #FFFFFF;
+      --text: #2C2C2C;
+      --gray: #6B7280;
+      --card-shadow: 0 4px 20px rgba(0,0,0,0.09);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, var(--secondary) 0%, #2C5F8A 60%, var(--primary) 100%);
+      color: var(--white);
+      padding: 70px 24px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -40px;
+      width: 250px; height: 250px;
+      border-radius: 50%;
+      background: rgba(232,93,39,0.18);
+    }
+    .hero-logo {
+      display: inline-block;
+      background: var(--white);
+      color: var(--primary);
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      padding: 8px 22px;
+      border-radius: 30px;
+      margin-bottom: 22px;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero p {
+      font-size: 1.15rem;
+      opacity: 0.9;
+      max-width: 640px;
+      margin: 0 auto 30px;
+    }
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .badge {
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.35);
+      color: var(--white);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: var(--secondary);
+      margin-bottom: 8px;
+    }
+    .section-subtitle {
+      color: var(--gray);
+      font-size: 1rem;
+      margin-bottom: 36px;
+    }
+    .title-accent {
+      display: inline-block;
+      width: 48px;
+      height: 4px;
+      background: var(--primary);
+      border-radius: 2px;
+      margin-bottom: 14px;
+    }
+
+    /* ── C'EST QUOI INTRAMUROS ── */
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+    @media(max-width: 700px){ .intro-grid { grid-template-columns: 1fr; } }
+
+    .intro-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: var(--card-shadow);
+    }
+    .intro-card .icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+    .intro-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--secondary);
+      margin-bottom: 8px;
+    }
+    .intro-card p { color: var(--gray); font-size: 0.95rem; }
+
+    /* ── PUBLICS ── */
+    .publics-strip { background: var(--secondary); }
+    .publics-strip .section { color: var(--white); }
+    .publics-strip .section-title { color: var(--white); }
+    .publics-strip .section-subtitle { color: rgba(255,255,255,0.7); }
+
+    .publics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 20px;
+    }
+    .public-card {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 14px;
+      padding: 24px;
+      text-align: center;
+      transition: background 0.2s;
+    }
+    .public-card:hover { background: rgba(255,255,255,0.18); }
+    .public-card .pub-icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .public-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+    .public-card p { font-size: 0.88rem; opacity: 0.8; }
+    .public-card .tag {
+      display: inline-block;
+      margin-top: 12px;
+      background: var(--primary);
+      color: white;
+      border-radius: 20px;
+      padding: 3px 12px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    /* ── MODULES DE FORMATION ── */
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .module-card {
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.2s;
+    }
+    .module-card:hover { transform: translateY(-4px); }
+    .module-header {
+      padding: 20px 24px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .module-num {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; font-weight: 800; color: white;
+      flex-shrink: 0;
+    }
+    .module-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--secondary);
+    }
+    .module-card .module-body { padding: 0 24px 24px; }
+    .step-list { list-style: none; }
+    .step-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 8px 0;
+      border-bottom: 1px solid #F0EDE8;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+    .step-list li:last-child { border-bottom: none; }
+    .step-dot {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      font-size: 0.7rem;
+      font-weight: 800;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .duration-badge {
+      display: inline-block;
+      margin: 16px 24px 0;
+      background: #FEF3EC;
+      color: var(--primary);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    /* ── FONCTIONNALITÉS APP ── */
+    .app-strip { background: linear-gradient(135deg, #FEF3EC 0%, #FFF8F0 100%); }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 18px;
+    }
+    .feature-pill {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 20px 18px;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+    }
+    .feature-pill .f-icon { font-size: 2rem; margin-bottom: 8px; }
+    .feature-pill h4 { font-size: 0.95rem; font-weight: 700; color: var(--secondary); margin-bottom: 4px; }
+    .feature-pill p { font-size: 0.82rem; color: var(--gray); }
+
+    /* ── COMMUNICATION ── */
+    .comm-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .comm-card {
+      background: var(--white);
+      border-left: 4px solid var(--primary);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: var(--card-shadow);
+    }
+    .comm-card h4 { font-size: 1rem; font-weight: 700; color: var(--secondary); margin-bottom: 8px; }
+    .comm-card p { font-size: 0.88rem; color: var(--gray); }
+
+    /* ── TIPS ── */
+    .tips-strip { background: var(--green); }
+    .tips-strip .section { color: var(--white); }
+    .tips-strip .section-title { color: var(--white); }
+    .tips-strip .title-accent { background: var(--accent); }
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 18px;
+    }
+    .tip-card {
+      background: rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 20px;
+    }
+    .tip-card .tip-icon { font-size: 1.8rem; margin-bottom: 8px; }
+    .tip-card p { font-size: 0.9rem; color: rgba(255,255,255,0.9); }
+
+    /* ── TÉLÉCHARGEMENT ── */
+    .dl-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 36px;
+      text-align: center;
+      box-shadow: var(--card-shadow);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .dl-card h3 { font-size: 1.4rem; font-weight: 800; color: var(--secondary); margin-bottom: 10px; }
+    .dl-card p { color: var(--gray); margin-bottom: 24px; }
+    .stores {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+    }
+    .store-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--secondary);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+    .store-btn:hover { background: var(--primary); }
+    .store-btn .s-icon { font-size: 1.3rem; }
+
+    /* ── CONTACT ── */
+    .contact-strip { background: var(--secondary); }
+    .contact-strip .section { color: var(--white); text-align: center; }
+    .contact-strip .section-title { color: var(--white); }
+    .contact-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+      margin-top: 24px;
+    }
+    .contact-item {
+      background: rgba(255,255,255,0.1);
+      border-radius: 12px;
+      padding: 18px 28px;
+      font-size: 0.95rem;
+    }
+    .contact-item strong { display: block; margin-bottom: 4px; color: var(--accent); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 0.82rem;
+      color: var(--gray);
+      background: var(--bg);
+      border-top: 1px solid #E5E0D8;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(26,58,92,0.97);
+      backdrop-filter: blur(8px);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      overflow-x: auto;
+    }
+    nav a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--accent); }
+    nav .nav-logo {
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 1rem;
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <span class="nav-logo">📍 IntraMuros</span>
+  <a href="#cest-quoi">C'est quoi ?</a>
+  <a href="#publics">Pour qui ?</a>
+  <a href="#formation">Formation</a>
+  <a href="#fonctionnalites">Fonctionnalités</a>
+  <a href="#communication">Communication</a>
+  <a href="#telecharger">Télécharger</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-logo">📍 IntraMuros</div>
+  <h1>Formez-vous à<br><span>l'application de votre territoire</span></h1>
+  <p>Découvrez comment utiliser la plateforme IntraMuros pour mieux communiquer, informer et connecter votre commune avec ses habitants.</p>
+  <div class="hero-badges">
+    <span class="badge">🏛️ Élus</span>
+    <span class="badge">👥 Habitants</span>
+    <span class="badge">🏢 Agents communaux</span>
+    <span class="badge">🛍️ Commerçants</span>
+    <span class="badge">📡 EPCI / Intercommunalités</span>
+  </div>
+</header>
+
+<!-- C'EST QUOI INTRAMUROS -->
+<div id="cest-quoi">
+  <div class="section">
+    <div class="title-accent"></div>
+    <h2 class="section-title">Qu'est-ce qu'IntraMuros ?</h2>
+    <p class="section-subtitle">Une application mobile gratuite qui rassemble toute la vie locale en un seul endroit.</p>
+    <div class="intro-grid">
+      <div class="intro-card">
+        <div class="icon">📱</div>
+        <h3>Une application mobile pour les habitants</h3>
+        <p>Disponible sur iPhone, Android et Huawei, IntraMuros centralise les actualités, événements, services et commerces de votre commune. Gratuite et simple à utiliser.</p>
+      </div>
+      <div class="intro-card">
+        <div class="icon">🖥️</div>
+        <h3>Une interface de gestion pour les élus et agents</h3>
+        <p>Le back-office accessible sur <strong>appli-intramuros.com</strong> permet de publier des informations, gérer les services, suivre les signalements et bien plus encore.</p>
+      </div>
+      <div class="intro-card">
+        <div class="icon">🤝</div>
+        <h3>Une plateforme participative</h3>
+        <p>IntraMuros implique associations, commerçants et habitants comme contributeurs. Chacun peut enrichir la vie locale de façon autonome et collaborative.</p>
+      </div>
+      <div class="intro-card">
+        <div class="icon">🔄</div>
+        <h3>Une solution évolutive</h3>
+        <p>L'application évolue en permanence selon les besoins des collectivités : synchronisation automatique avec votre site web, API, affichage légal, sondages…</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- POUR QUI -->
+<div class="publics-strip" id="publics">
+  <div class="section">
+    <div class="title-accent" style="background:var(--accent)"></div>
+    <h2 class="section-title">À qui s'adresse cette formation ?</h2>
+    <p class="section-subtitle">Chaque public trouve sa façon d'utiliser IntraMuros. Cette formation couvre tous les profils.</p>
+    <div class="publics-grid">
+      <div class="public-card">
+        <div class="pub-icon">🏛️</div>
+        <h3>Élus municipaux</h3>
+        <p>Maîtrisez l'interface de gestion, publiez des actualités, configurez votre commune et suivez l'engagement des habitants.</p>
+        <span class="tag">Interface admin</span>
+      </div>
+      <div class="public-card">
+        <div class="pub-icon">👷</div>
+        <h3>Agents communaux</h3>
+        <p>Gérez les services au quotidien : horaires, annuaire, signalements, événements, affichage légal.</p>
+        <span class="tag">Gestion quotidienne</span>
+      </div>
+      <div class="public-card">
+        <div class="pub-icon">👨‍👩‍👧</div>
+        <h3>Habitants</h3>
+        <p>Téléchargez l'application, sélectionnez votre commune et accédez à toute la vie locale en temps réel.</p>
+        <span class="tag">Application mobile</span>
+      </div>
+      <div class="public-card">
+        <div class="pub-icon">🛍️</div>
+        <h3>Commerçants</h3>
+        <p>Devenez contributeur : publiez vos actualités, promotions et événements directement dans l'onglet Commerces.</p>
+        <span class="tag">Espace contributeur</span>
+      </div>
+      <div class="public-card">
+        <div class="pub-icon">🏢</div>
+        <h3>EPCI / Intercos</h3>
+        <p>Coordonnez le déploiement sur tout votre territoire, formez les communes et définissez qui fait quoi.</p>
+        <span class="tag">Coordination</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODULES DE FORMATION -->
+<div id="formation">
+  <div class="section">
+    <div class="title-accent"></div>
+    <h2 class="section-title">Modules de formation</h2>
+    <p class="section-subtitle">Suivez les modules adaptés à votre profil, dans l'ordre ou à la carte.</p>
+    <div class="modules-grid">
+
+      <!-- Module 1 -->
+      <div class="module-card">
+        <div class="duration-badge">⏱️ ~15 min – Tous publics</div>
+        <div class="module-header">
+          <div class="module-num" style="background:var(--primary)">1</div>
+          <h3>Découvrir IntraMuros & télécharger l'application</h3>
+        </div>
+        <div class="module-body">
+          <ul class="step-list">
+            <li><span class="step-dot">1</span>Comprendre l'utilité de la plateforme</li>
+            <li><span class="step-dot">2</span>Télécharger l'application (App Store / Google Play / AppGallery)</li>
+            <li><span class="step-dot">3</span>Sélectionner sa commune ou son département</li>
+            <li><span class="step-dot">4</span>Explorer les 4 onglets principaux</li>
+            <li><span class="step-dot">5</span>Activer les notifications</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Module 2 -->
+      <div class="module-card">
+        <div class="duration-badge">⏱️ ~30 min – Élus & Agents</div>
+        <div class="module-header">
+          <div class="module-num" style="background:#2C5F8A">2</div>
+          <h3>Prendre en main l'interface d'administration</h3>
+        </div>
+        <div class="module-body">
+          <ul class="step-list">
+            <li><span class="step-dot">1</span>Se connecter à appli-intramuros.com</li>
+            <li><span class="step-dot">2</span>Configurer les informations de la commune (logo, horaires, contacts)</li>
+            <li><span class="step-dot">3</span>Activer et personnaliser les services locaux</li>
+            <li><span class="step-dot">4</span>Créer plusieurs administrateurs</li>
+            <li><span class="step-dot">5</span>Ajouter l'accès en favori</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Module 3 -->
+      <div class="module-card">
+        <div class="duration-badge">⏱️ ~20 min – Élus & Agents</div>
+        <div class="module-header">
+          <div class="module-num" style="background:var(--green)">3</div>
+          <h3>Publier du contenu : actualités, événements, points d'intérêt</h3>
+        </div>
+        <div class="module-body">
+          <ul class="step-list">
+            <li><span class="step-dot">1</span>Créer une actualité communale (Journal)</li>
+            <li><span class="step-dot">2</span>Publier un événement dans l'Agenda</li>
+            <li><span class="step-dot">3</span>Ajouter un point d'intérêt touristique (Découvrir)</li>
+            <li><span class="step-dot">4</span>Utiliser l'affichage légal</li>
+            <li><span class="step-dot">5</span>Éviter la double saisie grâce au widget site internet</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Module 4 -->
+      <div class="module-card">
+        <div class="duration-badge">⏱️ ~20 min – Élus & Agents</div>
+        <div class="module-header">
+          <div class="module-num" style="background:var(--accent)">4</div>
+          <h3>Gérer les contributeurs & les signalements</h3>
+        </div>
+        <div class="module-body">
+          <ul class="step-list">
+            <li><span class="step-dot">1</span>Comprendre le rôle des contributeurs</li>
+            <li><span class="step-dot">2</span>Ajouter un acteur local (association, commerce…)</li>
+            <li><span class="step-dot">3</span>Créer un compte contributeur</li>
+            <li><span class="step-dot">4</span>Modérer les contenus publiés</li>
+            <li><span class="step-dot">5</span>Traiter les signalements d'habitants</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Module 5 -->
+      <div class="module-card">
+        <div class="duration-badge">⏱️ ~15 min – Commerçants</div>
+        <div class="module-header">
+          <div class="module-num" style="background:#9B59B6">5</div>
+          <h3>L'espace Commerçants : publier ses infos</h3>
+        </div>
+        <div class="module-body">
+          <ul class="step-list">
+            <li><span class="step-dot">1</span>Comprendre l'onglet Commerces dans l'appli</li>
+            <li><span class="step-dot">2</span>Devenir contributeur (répondre au mail de la commune)</li>
+            <li><span class="step-dot">3</span>Se connecter avec ses identifiants</li>
+            <li><span class="step-dot">4</span>Publier une actualité, promotion ou événement</li>
+            <li><span class="step-dot">5</span>Bonnes pratiques de publication</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Module 6 -->
+      <div class="module-card">
+        <div class="duration-badge">⏱️ ~20 min – EPCI & Coordinateurs</div>
+        <div class="module-header">
+          <div class="module-num" style="background:#E74C3C">6</div>
+          <h3>Coordonner le déploiement – Rôle de l'EPCI</h3>
+        </div>
+        <div class="module-body">
+          <ul class="step-list">
+            <li><span class="step-dot">1</span>Comprendre la relation EPCI / communes</li>
+            <li><span class="step-dot">2</span>Définir "qui fait quoi" entre communes et interco</li>
+            <li><span class="step-dot">3</span>Former les référents dans chaque commune</li>
+            <li><span class="step-dot">4</span>Configurer l'intercommunalité dans l'interface</li>
+            <li><span class="step-dot">5</span>Suivre l'utilisation et accompagner les communes</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- FONCTIONNALITÉS DE L'APPLICATION -->
+<div class="app-strip" id="fonctionnalites">
+  <div class="section">
+    <div class="title-accent"></div>
+    <h2 class="section-title">Les fonctionnalités de l'application</h2>
+    <p class="section-subtitle">Ce que les habitants trouvent dans IntraMuros au quotidien.</p>
+    <div class="features-grid">
+      <div class="feature-pill">
+        <div class="f-icon">📰</div>
+        <h4>Journal</h4>
+        <p>Toutes les actualités de la commune, des associations et de l'interco</p>
+      </div>
+      <div class="feature-pill">
+        <div class="f-icon">📅</div>
+        <h4>Agenda</h4>
+        <p>Événements filtrables par date, catégorie et distance</p>
+      </div>
+      <div class="feature-pill">
+        <div class="f-icon">🗺️</div>
+        <h4>Découvrir</h4>
+        <p>Lieux touristiques et richesses locales à explorer</p>
+      </div>
+      <div class="feature-pill">
+        <div class="f-icon">🛍️</div>
+        <h4>Commerces</h4>
+        <p>Promotions, nouveautés et actualités des commerçants locaux</p>
+      </div>
+      <div class="feature-pill">
+        <div class="f-icon">⚠️</div>
+        <h4>Signaler</h4>
+        <p>Photo + géolocalisation pour signaler un problème à la mairie</p>
+      </div>
+      <div class="feature-pill">
+        <div class="f-icon">🗳️</div>
+        <h4>Sondages</h4>
+        <p>Participez aux sondages et consultez les résultats</p>
+      </div>
+      <div class="feature-pill">
+        <div class="f-icon">📋</div>
+        <h4>Services</h4>
+        <p>Horaires, annuaire, portail famille, location de salle…</p>
+      </div>
+      <div class="feature-pill">
+        <div class="f-icon">🔔</div>
+        <h4>Notifications</h4>
+        <p>Alertes en temps réel sur les infos qui vous concernent</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COMMUNICATION -->
+<div id="communication">
+  <div class="section">
+    <div class="title-accent"></div>
+    <h2 class="section-title">Faire connaître IntraMuros sur votre territoire</h2>
+    <p class="section-subtitle">Plusieurs canaux pour maximiser les téléchargements et l'engagement.</p>
+    <div class="comm-grid">
+      <div class="comm-card">
+        <h4>📲 Bouche-à-oreille numérique</h4>
+        <p>Encouragez les habitants à partager le lien de téléchargement via SMS, WhatsApp ou réseaux sociaux. Un partage à 10 personnes peut générer jusqu'à 100 téléchargements !</p>
+      </div>
+      <div class="comm-card">
+        <h4>📣 Réseaux sociaux & site internet</h4>
+        <p>Relayez votre adhésion sur Facebook, LinkedIn. Taguez @IntraMuros. Ajoutez une page dédiée sur votre site avec un bandeau promotionnel et un lien de téléchargement.</p>
+      </div>
+      <div class="comm-card">
+        <h4>🖨️ Supports physiques</h4>
+        <p>Affiches personnalisées, flyers en boîte aux lettres, bulletin municipal, bannières. Tous téléchargeables depuis l'interface dans la section "Mes documents".</p>
+      </div>
+      <div class="comm-card">
+        <h4>🪧 Panneau d'entrée de ville</h4>
+        <p>Le moyen le plus direct pour informer habitants et visiteurs. À installer à l'entrée de ville, sur axes passants ou près de la mairie. Bon de commande disponible.</p>
+      </div>
+      <div class="comm-card">
+        <h4>📰 Presse locale</h4>
+        <p>Un communiqué de presse est prêt à l'envoi. Disponible dans l'interface, rubrique "Télécharger mes documents". Un article local multiplie considérablement la visibilité.</p>
+      </div>
+      <div class="comm-card">
+        <h4>💡 Idées créatives</h4>
+        <p>Emballages de pain avec QR code, affiches dans les commerces partenaires, diffusion en réunion publique… Plus c'est visible, plus c'est efficace !</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONSEILS CLÉS -->
+<div class="tips-strip">
+  <div class="section">
+    <div class="title-accent"></div>
+    <h2 class="section-title">Conseils pour bien démarrer</h2>
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-icon">🌟</div>
+        <p><strong>Désignez des référents</strong> dans chaque service ou commune pour répartir la charge de publication.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🔖</div>
+        <p><strong>Ajoutez le back-office en favori</strong> sur votre téléphone pour publier rapidement une alerte ou actualité urgente.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🔁</div>
+        <p><strong>Évitez la double saisie</strong> en activant le widget pour synchroniser l'application avec votre site internet.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🏆</div>
+        <p><strong>Impliquez les contributeurs</strong> : associations et commerçants enrichissent l'app et multiplient les téléchargements.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🔐</div>
+        <p><strong>Sécurisez vos accès</strong> avec un gestionnaire de mots de passe et créez plusieurs comptes administrateurs.</p>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">📊</div>
+        <p><strong>Suivez l'engagement</strong> : taux de téléchargement, interactions, sondages — ajustez votre communication en conséquence.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TÉLÉCHARGEMENT -->
+<div id="telecharger">
+  <div class="section">
+    <div class="dl-card">
+      <div style="font-size:3rem;margin-bottom:12px">📱</div>
+      <h3>Téléchargez IntraMuros gratuitement</h3>
+      <p>Disponible sur tous les smartphones. Recherchez simplement "IntraMuros" dans votre store.</p>
+      <div class="stores">
+        <a href="https://apps.apple.com/fr/app/intramuros/id1234567890" class="store-btn" target="_blank">
+          <span class="s-icon">🍎</span> App Store (iPhone)
+        </a>
+        <a href="https://play.google.com/store/search?q=intramuros" class="store-btn" target="_blank">
+          <span class="s-icon">▶️</span> Google Play (Android)
+        </a>
+        <a href="https://appgallery.huawei.com/" class="store-btn" target="_blank">
+          <span class="s-icon">🔴</span> AppGallery (Huawei)
+        </a>
+      </div>
+      <p style="margin-top:20px;font-size:0.85rem;color:var(--gray)">Interface de gestion : <strong><a href="https://appli-intramuros.com" target="_blank" style="color:var(--primary)">appli-intramuros.com</a></strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="contact-strip" id="contact">
+  <div class="section">
+    <div class="title-accent" style="background:var(--accent);margin:0 auto 14px"></div>
+    <h2 class="section-title">Une question ? Besoin d'aide ?</h2>
+    <p style="opacity:0.8">Votre mairie ou communauté de communes est là pour vous accompagner.<br>IntraMuros propose aussi une assistance technique.</p>
+    <div class="contact-info">
+      <div class="contact-item">
+        <strong>📞 IntraMuros</strong>
+        05.54.67.12.60
+      </div>
+      <div class="contact-item">
+        <strong>🌐 Site officiel</strong>
+        <a href="https://appli-intramuros.fr" target="_blank" style="color:white">appli-intramuros.fr</a>
+      </div>
+      <div class="contact-item">
+        <strong>📧 Assistance technique</strong>
+        assistance@intramuros.org
+      </div>
+      <div class="contact-item">
+        <strong>📱 Réseaux sociaux</strong>
+        Facebook & LinkedIn : IntraMuros
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © 2025 – Formation IntraMuros – Page réalisée à destination des élus, agents, habitants et commerçants du territoire.
+</footer>
+
+</body>
+</html>
